@@ -1,5 +1,8 @@
 repositories:
-
+  chonkur_l_raile:
+    type: git
+    url: git@github.com:traclabs/chonkur_l_raile.git
+    version: rolling-devel
   dextivr_hande:
     type: git
     url: git@github.com:NASA-JSC-Robotics/dextivr_hande
