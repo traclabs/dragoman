@@ -1,0 +1,7 @@
+repositories:
+
+  dragoman_sandbox:
+    type: git
+    url: git@bitbucket.org:traclabs/dragoman_sandbox.git
+    version: devel
+
