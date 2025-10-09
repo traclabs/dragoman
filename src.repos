@@ -15,6 +15,10 @@ repositories:
     type: git
     url: git@github.com:traclabs/ewellix_lift_kit.git
     version: rolling-devel
+  merlin_mockup_description:
+    type: git
+    url: git@github.com:NASA-JSC-Robotics/merlin_mockup_description
+    version: humble-devel
   ros2_robotiq_gripper:
     type: git
     url: git@github.com:traclabs/ros2_robotiq_gripper.git
@@ -23,6 +27,10 @@ repositories:
     type: git
     url: git@github.com:tylerjw/serial.git
     version: ros2
+  surface_robotics_mockups_description:
+    type: git
+    url: git@github.com:NASA-JSC-Robotics/surface_robotics_mockups_description
+    version: humble-devel    
   vention_rail:
     type: git
     url: git@github.com:traclabs/vention_rail.git
