@@ -2,11 +2,13 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+### Installation ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Install [pymdb](https://github.com/yamcs/pymdb) to generate XTCE:
+
+  ```
+  pip install yamcs-pymdb
+  ```
 
 ### How do I get set up? ###
 
