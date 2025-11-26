@@ -5,27 +5,20 @@ This README would normally document whatever steps are necessary to get your app
 ### Installation ###
 
 * Install [pymdb](https://github.com/yamcs/pymdb) to generate XTCE:
-
   ```
   pip install yamcs-pymdb
   ```
+* Clone repos:
+  ```
+  cd ~/ros2
+  git clone git@bitbucket.org:traclabs/dragoman
+  cd dragoman
+  mkdir src
+  vcs import src < jazzy.repos
+  ```
+* Compile
+  ```
+  source /opt/ros/jazzy/setup.bash
+  colcon build --symlink-install
+  ```
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
