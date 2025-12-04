@@ -26,15 +26,19 @@ repositories:
   ros2_robotiq_gripper:
     type: git
     url: git@github.com:traclabs/ros2_robotiq_gripper.git
-    version: rolling-devel    
+    version: rolling-devel
   serial:
     type: git
     url: git@github.com:tylerjw/serial.git
     version: ros2
+  space_ros_demos:
+    type: git
+    url: git@github.com:traclabs/demos.git
+    version: dragoman
   surface_robotics_mockups_description:
     type: git
     url: git@github.com:NASA-JSC-Robotics/surface_robotics_mockups_description
-    version: humble-devel    
+    version: humble-devel
   vention_rail:
     type: git
     url: git@github.com:traclabs/vention_rail.git
