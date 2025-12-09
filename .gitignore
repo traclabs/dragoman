@@ -48,3 +48,12 @@ Thumbs.db
 *.mov
 *.wmv
 
+# ROS generated directories
+build/
+install/
+log/
+logs/
+
+# VScode settings
+# .vscode/
+.vscode-server/
