@@ -1,0 +1,9 @@
+repositories:
+  cFS:
+    type: git
+    url: git@github.com:traclabs/cFS.git
+    version: edoras
+  cFS/apps/edoras_app:
+    type: git
+    url: git@github.com:traclabs/edoras_app.git
+    version: dragoman_gateway    

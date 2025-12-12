@@ -10,7 +10,7 @@ repositories:
   dragoman_sandbox:
     type: git
     url: git@bitbucket.org:traclabs/dragoman_sandbox.git
-    version: devel
+    version: feat/edoras_comm
   ewellix_lift_kit:
     type: git
     url: git@github.com:traclabs/ewellix_lift_kit.git

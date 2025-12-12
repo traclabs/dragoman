@@ -1,24 +1,7 @@
-# README #
+## Dragoman workspace
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This workspace contains the docker and configuration files necessary to build an end-to-end demo with YAMCS on one side and FSW (cFS) on the other end.
 
-### Installation ###
 
-* Install [pymdb](https://github.com/yamcs/pymdb) to generate XTCE:
-  ```
-  pip install yamcs-pymdb
-  ```
-* Clone repos:
-  ```
-  cd ~/ros2
-  git clone git@bitbucket.org:traclabs/dragoman
-  cd dragoman
-  mkdir src
-  vcs import src < jazzy.repos
-  ```
-* Compile
-  ```
-  source /opt/ros/jazzy/setup.bash
-  colcon build --symlink-install
-  ```
-
+1. [Installation](docs/build_docker_images.md)
+2. [Gateway example](docs/demo_fsw_gateway.md)

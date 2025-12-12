@@ -1,0 +1,5 @@
+repositories:
+  edoras:
+    type: git
+    url: git@github.com:traclabs/edoras.git
+    version: master
