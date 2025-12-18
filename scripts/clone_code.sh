@@ -24,7 +24,6 @@ clone_edoras_code() {
   git clone -b master git@github.com:traclabs/edoras_core.git edoras_core
 }
 
-
 # *******************
 # clone_edoras
 # *******************
@@ -35,7 +34,7 @@ clone_edoras() {
     echo "    ** Creating directory $ROSWS"
     mkdir $ROSWS
   fi
-  
+
   if [ ! -d $ROSWS/src ]; then
     echo "    ** Creating directory $ROSWS/src"
     mkdir -p $ROSWS/src
@@ -54,7 +53,7 @@ clone_dragoman() {
     echo "    ** Creating directory $ROSWS"
     mkdir $ROSWS
   fi
-  
+
   if [ ! -d $ROSWS/src ]; then
     echo "    ** Creating directory $ROSWS/src"
     mkdir $ROSWS/src
@@ -71,26 +70,12 @@ clone_extra_edoras_robots() {
   echo ""
   echo "* Cloning additional robots for Edoras demos...*"
   vcs import $ROSWS/src < edoras_extra_robots.repos
-  
-  touch $ROSWS/src/trac_ik/trac_ik_kinematics_plugin/COLCON_IGNORE 
+
+  touch $ROSWS/src/trac_ik/trac_ik_kinematics_plugin/COLCON_IGNORE
 }
 
-# ************************
-# Copy scripts
-# ************************
-clone_scripts() {
-
-  if [ ! -d $ROSWS ]; then 
-    mkdir $ROSWS
-  fi  
-  
-  cp scripts/run_rosgsw.sh $ROSWS
-  cp scripts/run_rosfsw.sh $ROSWS
-}
-
-clone_scripts
-clone_cfs 
-clone_edoras_code 
+clone_cfs
+clone_edoras_code
 clone_edoras
 clone_dragoman
 
@@ -100,12 +85,12 @@ mode="skip_robots" # include_robots skip_robots
 if [[ $# -eq 1 ]]; then
   mode = $1
 fi
-  
-if [[ mode -eq "include_robots" ]]; then   
+
+if [[ mode -eq "include_robots" ]]; then
 
   echo ""
   echo "* Clone extra Edoras robots"
   clone_extra_edoras_robots
-fi  
-  
+fi
+
 exit 1

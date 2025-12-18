@@ -1,14 +1,12 @@
 version: "3.8"
+
 services:
-  # NOTE: exposed ports are for debug purposes only. Volume mounts are for both debug and logging. 
   fsw:
-    image: "ghcr.io/traclabs/edoras_ws:cfs"
-    command: "./core-cpu2" #"sleep infinity" #"./core-cpu2"
+    image: "fsw-dev"
+    #command: "sleep infinity"  # Useful for debugging
+    command: "./core-cpu2"
     environment:
       - DISPLAY=novnc:0.0
-    # Enable 123 forwarding to access/test the cFE NTP server from outside docker
-    ports:
-      - "123:123/udp"
     sysctls:
       - fs.mqueue.msg_max=64
     networks:
@@ -17,14 +15,18 @@ services:
     build:
       context: .
       dockerfile: fsw.Dockerfile
-      target: fsw
+      target: "fsw-dev"
       args:
         - USER_UID=${UID:-1000}
+    volumes:
+      - "./cFS:/code/cFS"
+      - "./edoras_core:/code/edoras_core"
+    working_dir: /code/cFS/build/exe/cpu2
+
   rosgsw:
-    image: "ghcr.io/traclabs/edoras_ws:rosgsw"
-    command: "./run_rosgsw.sh" #"sleep infinity"
-    env_file:
-      - env.sh
+    image: "rosws"
+    #command: "sleep infinity"  # Useful for debugging
+    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 run dragoman_yamcs_project dragoman_yamcs"]
     environment:
       - ROS_DOMAIN_ID=2
       - DISPLAY=novnc:0.0
@@ -33,15 +35,12 @@ services:
         ipv4_address: 10.5.0.2
     build:
       context: .
-      dockerfile: fsw.Dockerfile
-      target: fsw
-      args:
-        - USER_UID=${UID:-1000}
+      dockerfile: rosws.Dockerfile
+
   rosfsw:
-    image: "ghcr.io/traclabs/edoras_ws:rosfsw"
-    command: "./run_rosfsw.sh" #"sleep infinity"
-    env_file:
-      - env.sh
+    image: "rosws"
+    #command: "sleep infinity"  # Useful for debugging
+    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_fsw_sim gateway_single_arm_flight_demo_multihost.launch.py"]
     environment:
       - ROS_DOMAIN_ID=4
       - DISPLAY=novnc:0.0
@@ -51,13 +50,10 @@ services:
     build:
       context: .
       dockerfile: rosws.Dockerfile
-      target: rosfsw
-      args:
-        - USER_UID=${UID:-1000}
+
   novnc:
     image: theasp/novnc:latest
     environment:
-      # Adjust to your screen size
       - DISPLAY_WIDTH=1920
       - DISPLAY_HEIGHT=1080
       - RUN_XTERM=no
@@ -66,11 +62,11 @@ services:
     networks:
       spaceip:
         ipv4_address: 10.5.0.5
-        
+
 networks:
   spaceip:
     driver: bridge
     ipam:
-     config:
-       - subnet: 10.5.0.0/16
-         gateway: 10.5.0.1
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
