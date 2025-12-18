@@ -28,7 +28,7 @@ services:
     #command: "sleep infinity"  # Useful for debugging
     command: ["/bin/bash", "-c", "source install/setup.bash && ros2 run dragoman_yamcs_project dragoman_yamcs"]
     environment:
-      - ROS_DOMAIN_ID=2
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
       - DISPLAY=novnc:0.0
     networks:
       spaceip:
@@ -42,7 +42,7 @@ services:
     #command: "sleep infinity"  # Useful for debugging
     command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_fsw_sim gateway_single_arm_flight_demo_multihost.launch.py"]
     environment:
-      - ROS_DOMAIN_ID=4
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
       - DISPLAY=novnc:0.0
     networks:
       spaceip:
