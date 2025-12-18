@@ -8,13 +8,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
 # Needed for OpenGL fix for Rviz to display
 # && apt-get install -y software-properties-common \
-# && add-apt-repository -y ppa:kisak/kisak-mesa \ 
- && apt update \ 
+# && add-apt-repository -y ppa:kisak/kisak-mesa \
+ && apt update \
  && apt -y upgrade \
  && apt-get install -y \
-  python3-pip \ 
+  python3-pip \
   libnlopt-dev \
   libnlopt-cxx-dev \
+  libglfw3-dev \
 # Note: ros-jazzy-desktop is needed for ARM base image, but is already available for nominal -desktop image
   ros-jazzy-desktop \
   ros-jazzy-xacro \
@@ -60,18 +61,18 @@ RUN sudo apt-get update && sudo apt-get install -y \
   ros-jazzy-joint-state-publisher \
   ros-jazzy-srdfdom \
   ros-jazzy-joint-state-publisher-gui \
-  ros-jazzy-joint-trajectory-controller \  
+  ros-jazzy-joint-trajectory-controller \
   ros-jazzy-geometric-shapes \
   ros-jazzy-rqt-robot-steering \
   ros-jazzy-rqt* \
-  ros-jazzy-topic-tools \  
+  ros-jazzy-topic-tools \
   libdwarf-dev \
   libelf-dev \
   libsqlite3-dev \
   sqlitebrowser \
   maven \
   ros-jazzy-ur-dashboard-msgs \
-  ros-jazzy-ur-msgs \  
+  ros-jazzy-ur-msgs \
  && sudo rm -rf /var/lib/apt/lists/*
 
 # Required for building Yamcs-related
