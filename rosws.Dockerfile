@@ -90,6 +90,7 @@ RUN --mount=type=cache,target=/ws/ccache \
     colcon build
 
 # Generate XTCE files
+RUN PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install yamcs-pymdb
 RUN . install/setup.sh && ros2 run dragoman_sample_xtce generate_xtces.sh
 
 # Build the workspace again to install generated XTCE files
