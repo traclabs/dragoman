@@ -49,10 +49,9 @@ Thumbs.db
 *.wmv
 
 # ROS generated directories
-build/
-install/
-log/
-logs/
+rosws/
+edoras_core/
+cFS/
 
 # VScode settings
 # .vscode/
