@@ -48,6 +48,6 @@ RUN PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install yamcs-pymdb construct yamcs-client
 # Set some ROS 2 logging env variables in ~/.bashrc
 RUN echo 'export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{name}] {file_name}:{line_number} - {message}"' >> ~/.bashrc
 
-RUN echo 'source /dragoman/install/local_setup.bash' >> ~/.bashrc
+RUN echo 'source /dragoman/rosws/install/local_setup.bash' >> ~/.bashrc
 
 RUN echo 'export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST' >> ~/.bashrc
