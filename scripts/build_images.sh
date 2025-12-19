@@ -3,13 +3,13 @@
 echo ""
 echo "##### Building base images #####"
 echo ""
-COMPOSE_FILE="docker-compose-dev.yml"
+COMPOSE_FILE="docker-compose.yml"
 
 while getopts 'c:' opt ; do
-  case "$opt" in 
-  c) COMPOSE_FILE=$OPTARG ;; 
-  esac 
-done 
+  case "$opt" in
+  c) COMPOSE_FILE=$OPTARG ;;
+  esac
+done
 
 echo "...Using COMPOSE_FILE: ${COMPOSE_FILE}..."
 
@@ -23,7 +23,7 @@ build_images_code() {
   ret=$?
   if [ $ret -ne 0 ]; then
     echo "!! Failed in building base image for fsw, rosgsw and rosfsw services !!"
-    return 1  
+    return 1
   fi
 
   echo ""
@@ -32,3 +32,4 @@ build_images_code() {
 }
 
 build_images_code
+

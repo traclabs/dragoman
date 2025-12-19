@@ -1,0 +1,18 @@
+{
+  "name": "Dragoman (jazzy)",
+  "dockerFile": "Dockerfile",
+  "runArgs": [
+    "--privileged",
+    "--network=host",
+    "--gpus", "all"  // Enable if using NVIDIA GPU
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind",
+  "workspaceFolder": "/${localWorkspaceFolderBasename}",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.bash_history,target=/home/vscode/.bash_history,type=bind"
+  ],
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "NVIDIA_DRIVER_CAPABILITIES": "all"  // Enable if using NVIDIA GPU
+  }
+}

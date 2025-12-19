@@ -1,172 +1,99 @@
-################################################
-# Build ros-base                               #
-# (ROS2 image with default packages)           #
-################################################
-FROM osrf/ros:jazzy-desktop AS ros-base
+##############
+# Base stage #
+##############
+FROM ros:jazzy-ros-core AS baser
+
+# Disable interactive frontend
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-# Needed for OpenGL fix for Rviz to display
-# && apt-get install -y software-properties-common \
-# && add-apt-repository -y ppa:kisak/kisak-mesa \
- && apt update \
- && apt -y upgrade \
- && apt-get install -y \
-  python3-pip \
-  libnlopt-dev \
-  libnlopt-cxx-dev \
-  libglfw3-dev \
-# Note: ros-jazzy-desktop is needed for ARM base image, but is already available for nominal -desktop image
-  ros-jazzy-desktop \
-  ros-jazzy-xacro \
-  ros-jazzy-joint-state-publisher \
-  ros-jazzy-srdfdom \
-  ros-jazzy-rqt* \
-  ros-jazzy-ament-cmake-test \
- && rm -rf /var/lib/apt/lists/*
+# Disable automatic apt cache removal (BuildKit cache mounts will manage it)
+RUN rm -f /etc/apt/apt.conf.d/docker-clean
 
-RUN pip install cfdp --break-system-packages
+# Update all packages
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    apt update
 
-# Switch to bash shell
-SHELL ["/bin/bash", "-c"]
+# Upgrade all packages
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    apt upgrade -y
 
-# Create a brash user
-ENV USERNAME=ubuntu
-ENV CODE_DIR=/code
+# Install pip
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    apt install python3-pip python3-colcon-common-extensions -y
 
-# Dev container arguments
-ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
+# ################
+# # Cacher stage #
+# ################
+FROM baser AS cacher
 
-RUN  echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
-&& chmod 0440 /etc/sudoers.d/${USERNAME} \
-&& mkdir -p ${CODE_DIR} \
-&& chown -R ${USER_UID}:${USER_GID} ${CODE_DIR}
+# Install rosdep
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    apt install python3-rosdep -y
 
+# Initialize rosdep
+RUN rosdep init && \
+    rosdep update
 
-USER ${USERNAME}
-WORKDIR ${CODE_DIR}
+# Copy the src directory into image
+WORKDIR /ws
+COPY rosws/src /ws/src
+COPY rosws/install_deps.sh /ws/install_deps.sh
+COPY rosws/colcon_defaults.yaml /ws/colcon_defaults.yaml
 
-################################################
-# Build rosgsw-dev                             #
-################################################
+# Generate sorted lists of ROS dependencies (APT and PIP)
+RUN /ws/install_deps.sh --simulate --reinstall > /tmp/rosdep_output.txt; \
+    # Search for lines containing 'apt-get install' and extract the package names
+    grep 'apt-get install' /tmp/rosdep_output.txt \
+    | awk '{print $4}' | tr -d "'" | sort > /tmp/apt_deps.txt; \
+    # Search for lines containing 'pip3 install' and extract the package names
+    grep 'pip3 install' /tmp/rosdep_output.txt \
+    | awk '{print $5}' | tr -d "'" | sort > /tmp/pip_deps.txt;
 
-FROM ros-base AS rosgsw-dev
-ENV DEBIAN_FRONTEND=noninteractive
+###############
+# Final stage #
+###############
+FROM baser AS final
 
-RUN sudo apt-get update && sudo apt-get install -y \
-  libnlopt-dev \
-  libnlopt-cxx-dev \
-  ros-jazzy-xacro \
-  ros-jazzy-joint-state-publisher \
-  ros-jazzy-srdfdom \
-  ros-jazzy-joint-state-publisher-gui \
-  ros-jazzy-joint-trajectory-controller \
-  ros-jazzy-geometric-shapes \
-  ros-jazzy-rqt-robot-steering \
-  ros-jazzy-rqt* \
-  ros-jazzy-topic-tools \
-  libdwarf-dev \
-  libelf-dev \
-  libsqlite3-dev \
-  sqlitebrowser \
-  maven \
-  ros-jazzy-ur-dashboard-msgs \
-  ros-jazzy-ur-msgs \
- && sudo rm -rf /var/lib/apt/lists/*
+# Go into ROS WS
+WORKDIR /ws
 
-# Required for building Yamcs-related
-RUN sudo pip install --break-system-packages setuptools yamcs-pymdb construct
+# Install some utilities
+# - ccache: For caching build/ install/ across docker builds
+# - git: Needed for mujoco_ros2_simulation's CMakeLists.txt to do an ExternalProject_Add
+RUN --mount=type=cache,target=/var/cache/apt/archives \
+    apt install -y ccache git
 
-# Set up sourcing
-COPY --chown=${USERNAME}:${USERNAME} config/rosgsw_entrypoint.sh ${CODE_DIR}/entrypoint.sh
-RUN echo 'source ${CODE_DIR}/entrypoint.sh' >> ~/.bashrc
+# Set up ccache
+ENV CC="ccache gcc"
+ENV CXX="ccache g++"
+ENV CCACHE_DIR=/ws/ccache
 
+# Install APT dependencies
+COPY --link --from=cacher /tmp/apt_deps.txt /tmp/apt_deps.txt
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    xargs -a /tmp/apt_deps.txt apt-get install -y --no-install-recommends
 
-RUN mkdir -p ${CODE_DIR}/rosws
-WORKDIR ${CODE_DIR}/rosws
+# Install PIP dependencies (if any)
+COPY --link --from=cacher /tmp/pip_deps.txt /tmp/pip_deps.txt
+RUN --mount=type=cache,sharing=locked,target=/root/.cache/pip \
+    if [ -s /tmp/pip_deps.txt ]; then \
+      PIP_BREAK_SYSTEM_PACKAGES=1 xargs -a /tmp/pip_deps.txt -n 1 pip3 install -U -I ; \
+    fi
 
-################################################
-# Build rosfsw-dev                             #
-################################################
+# Copy the src directory into image
+COPY rosws/src /ws/src
+COPY rosws/colcon_defaults.yaml /ws/colcon_defaults.yaml
 
-FROM ros-base AS rosfsw-dev
-ENV DEBIAN_FRONTEND=noninteractive
+# Build the workspace
+RUN --mount=type=cache,target=/ws/ccache \
+    . /opt/ros/jazzy/setup.sh && \
+    colcon build
 
-RUN sudo apt-get update && sudo apt-get install -y \
-  ros-jazzy-controller-interface \
-  ros-jazzy-realtime-tools \
-  ros-jazzy-control-toolbox \
-  ros-jazzy-geometric-shapes \
-  ros-jazzy-controller-manager \
-  ros-jazzy-joint-trajectory-controller \
-  ros-jazzy-rqt* \
-  ros-jazzy-ros-gz-sim \
-  ros-jazzy-ros-gz-bridge \
-  ros-jazzy-robot-localization \
-  ros-jazzy-interactive-marker-twist-server \
-  ros-jazzy-twist-mux \
-  ros-jazzy-joy-linux \
-  ros-jazzy-imu-tools \
-  ros-jazzy-topic-tools \
-  ros-jazzy-joint-state-broadcaster \
-  ros-jazzy-diff-drive-controller \
-  ros-jazzy-ur-dashboard-msgs \
-  ros-jazzy-ur-msgs \
- && sudo rm -rf /var/lib/apt/lists/*
+# Generate XTCE files
+RUN PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install yamcs-pymdb
+RUN . install/setup.sh && ros2 run dragoman_sample_xtce generate_xtces.sh
 
-# Required for building Yamcs-related
-RUN sudo pip install --break-system-packages setuptools yamcs-pymdb construct
-
-# Set up sourcing
-COPY --chown=${USERNAME}:${USERNAME} config/rosgsw_entrypoint.sh ${CODE_DIR}/entrypoint.sh
-RUN echo 'source ${CODE_DIR}/entrypoint.sh' >> ~/.bashrc
-
-RUN mkdir -p ${CODE_DIR}/rosws
-WORKDIR ${CODE_DIR}/rosws
-
-
-##################################################
-# Build rosgsw (Production)
-##################################################
-#FROM rosgsw-dev AS rosgsw
-
-# Copy brash=
-#COPY --chown=${USERNAME}:${USERNAME} brash ${CODE_DIR}/brash
-
-# Build the brash workspace
-#WORKDIR ${CODE_DIR}/brash
-#RUN source /opt/ros/jazzy/setup.bash &&  \
-#    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
-
-# Build juicer
-#COPY --chown=${USERNAME}:${USERNAME} juicer ${CODE_DIR}/juicer
-#WORKDIR ${CODE_DIR}/juicer
-#RUN  make
-
-# Set workspace
-#WORKDIR ${CODE_DIR}/brash
-
-
-
-##################################################
-# Build rosfsw (Production)
-##################################################
-#FROM rosfsw-dev AS rosfsw
-
-# Copy brash
-#COPY --chown=${USERNAME}:${USERNAME} brash ${CODE_DIR}/brash
-
-# Build the brash workspace
-#WORKDIR ${CODE_DIR}/brash
-#RUN source ${CODE_DIR}/rover_ws/install/setup.bash && \
-#    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
-
-# Build juicer
-#COPY --chown=${USERNAME}:${USERNAME} juicer ${CODE_DIR}/juicer
-#WORKDIR ${CODE_DIR}/juicer
-#RUN  make
-
-# Set workspace
-#WORKDIR ${CODE_DIR}/brash
-
+# Build the workspace again to install generated XTCE files
+RUN --mount=type=cache,target=/ws/ccache \
+    . /opt/ros/jazzy/setup.sh && \
+    colcon build
