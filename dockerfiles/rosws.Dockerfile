@@ -80,6 +80,10 @@ RUN --mount=type=cache,sharing=locked,target=/root/.cache/pip \
       PIP_BREAK_SYSTEM_PACKAGES=1 xargs -a /tmp/pip_deps.txt -n 1 pip3 install -U -I ; \
     fi
 
+# Install yamcs-client Python package for YAMCS bridge
+RUN --mount=type=cache,sharing=locked,target=/root/.cache/pip \
+    PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install yamcs-client
+
 # Copy the src directory into image
 COPY rosws/src /ws/src
 COPY rosws/colcon_defaults.yaml /ws/colcon_defaults.yaml
