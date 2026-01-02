@@ -12,7 +12,7 @@ services:
         ipv4_address: 10.5.0.3
     build:
       context: .
-      dockerfile: fsw.Dockerfile
+      dockerfile: dockerfiles/fsw.Dockerfile
       target: "fsw-dev"
       args:
         - USER_UID=${UID:-1000}
@@ -32,7 +32,7 @@ services:
         ipv4_address: 10.5.0.2
     build:
       context: .
-      dockerfile: yamcs.Dockerfile
+      dockerfile: dockerfiles/yamcs.Dockerfile
 
   rosfsw:
     image: "rosws"
@@ -46,7 +46,7 @@ services:
         ipv4_address: 10.5.0.4
     build:
       context: .
-      dockerfile: rosws.Dockerfile
+      dockerfile: dockerfiles/rosws.Dockerfile
 
   novnc:
     image: theasp/novnc:latest
