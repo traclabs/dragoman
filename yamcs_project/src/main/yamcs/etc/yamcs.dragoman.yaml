@@ -33,7 +33,7 @@ dataLinks:
   - name: udp-out-gateway
     class: org.yamcs.tctm.UdpTcDataLink
     stream: tc_realtime_gateway
-    host: localhost
+    host: 10.5.0.3
     port: 1235
     commandPostprocessorClassName: com.traclabs.dragoman.MyCommandPostprocessor
 
