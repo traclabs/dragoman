@@ -3,14 +3,14 @@ Run Gateway single-arm example
 
 This demo has 3 docker containers:
 
-* rosgsw: Ground container, it runs YAMCS
+* yamcs: Ground container, it runs YAMCS
 * fsw: Spacecraft container, it runs cFS with a demo application.
 * rosfsw: Container that runs the robot with ROS2.
 
-Think of rosgsw as being a machine on Earth, fsw to be the spacecraft on a remote surface, and the rosfsw the machine that runs on the robot hardware.
+Think of yamcs as running on a machine on Earth, fsw to be the spacecraft on a remote surface, and the rosfsw the machine that runs on the robot hardware.
 
 Communication looks like:
-rosgs <-----------> fsw <--> rosfsw
+yamcs <-----------> fsw <--> rosfsw
 
 
 Steps
@@ -20,7 +20,7 @@ Steps
    ```
    docker compose -f docker-compose.yml up
    ```
-   This will start 3 services: fsw, rosgsw and novnc. fsw starts cFS already up
+   This will start 3 services: fsw, yamcs and novnc. fsw starts cFS already up
 
 2. In a browser open VNC: http://localhost:8080/vnc.html
 

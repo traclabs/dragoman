@@ -21,19 +21,18 @@ services:
       - "./edoras_core:/code/edoras_core"
     working_dir: /code/cFS/build/exe/cpu2
 
-  rosgsw:
-    image: "rosws"
+  yamcs:
+    image: "yamcs"
     #command: "sleep infinity"  # Useful for debugging
-    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 run dragoman_yamcs_project dragoman_yamcs"]
+    command: ["mvn", "yamcs:run"]
     environment:
-      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
       - DISPLAY=novnc:0.0
     networks:
       spaceip:
         ipv4_address: 10.5.0.2
     build:
       context: .
-      dockerfile: rosws.Dockerfile
+      dockerfile: yamcs.Dockerfile
 
   rosfsw:
     image: "rosws"
