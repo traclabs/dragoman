@@ -1,0 +1,83 @@
+services:
+  isaac-sim:
+    image: nvcr.io/nvidia/isaac-sim:5.0.0
+    container_name: isaac-sim
+    entrypoint: []
+    command:
+      - /bin/bash
+      - -lc
+      - |
+          exec /isaac-sim/runapp.sh \
+            --no-window=false \
+            --exec "open_stage.py '/viper/viper_on_moon.usd'"
+    tty: true
+
+    # GPU access
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+
+    # ⬅️ custom network instead of host
+    networks:
+      spaceip:
+        ipv4_address: 10.5.0.10
+
+    ipc: host
+
+    environment:
+      ACCEPT_EULA: "Y"
+      PRIVACY_CONSENT: "Y"
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+      QT_X11_NO_MITSHM: "1"
+
+    volumes:
+      # X11
+      - ${HOME}/.Xauthority:/root/.Xauthority
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+      # Workspace
+      - ${PWD}/demos/viper:/viper
+
+      # Isaac Sim caches
+      - ${HOME}/docker/isaac-sim/cache/kit:/isaac-sim/kit/cache:rw
+      - ${HOME}/docker/isaac-sim/cache/ov:/root/.cache/ov:rw
+      - ${HOME}/docker/isaac-sim/cache/pip:/root/.cache/pip:rw
+      - ${HOME}/docker/isaac-sim/cache/glcache:/root/.cache/nvidia/GLCache:rw
+      - ${HOME}/docker/isaac-sim/cache/computecache:/root/.nv/ComputeCache:rw
+
+
+  test-container-jazzy:
+    image: osrf/ros:jazzy-desktop-full
+    container_name: test-container-jazzy
+    tty: true
+    stdin_open: true
+    command: /bin/bash
+
+    networks:
+      spaceip:
+        ipv4_address: 10.5.0.6
+
+    environment:
+      DISPLAY: ${DISPLAY}
+      QT_X11_NO_MITSHM: "1"
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${HOME}/.Xauthority:/root/.Xauthority
+      - ${PWD}:/workspace
+
+    working_dir: /workspace
+
+
+networks:
+  spaceip:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

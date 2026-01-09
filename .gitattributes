@@ -1,0 +1,8 @@
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.tif filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+demos/viper/lunar_pole_exploration_rover_generated/** filter=lfs diff=lfs merge=lfs -text
+demos/viper/viper_on_moon.usd filter=lfs diff=lfs merge=lfs -text
