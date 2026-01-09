@@ -49,12 +49,12 @@ Thumbs.db
 *.wmv
 
 # ROS generated directories
-rosws/src/
-rosws/build/
-rosws/install/
-rosws/log/
+ros/src/
+ros/build/
+ros/install/
+ros/log/
 edoras_core/
-cFS/
+cfs/cFS/
 
 # VScode settings
 # .vscode/

@@ -12,8 +12,8 @@ services:
       spaceip:
         ipv4_address: 10.5.0.3
     build:
-      context: .
-      dockerfile: dockerfiles/fsw.Dockerfile
+      context: ../../
+      dockerfile: cfs/Dockerfile
       target: "fsw-dev"
       args:
         - USER_UID=${UID:-1000}
@@ -35,8 +35,8 @@ services:
       spaceip:
         ipv4_address: 10.5.0.2
     build:
-      context: .
-      dockerfile: dockerfiles/yamcs.Dockerfile
+      context: ../../
+      dockerfile: yamcs/Dockerfile
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
@@ -53,8 +53,8 @@ services:
       spaceip:
         ipv4_address: 10.5.0.4
     build:
-      context: .
-      dockerfile: dockerfiles/rosws.Dockerfile
+      context: ../../
+      dockerfile: ros/Dockerfile
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
@@ -71,7 +71,7 @@ services:
       spaceip:
         ipv4_address: 10.5.0.6
     build:
-      context: .
+      context: ../../
       dockerfile: dockerfiles/rosws.Dockerfile
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
