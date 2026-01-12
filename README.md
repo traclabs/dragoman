@@ -4,4 +4,5 @@ This workspace contains the docker and configuration files necessary to build an
 
 
 1. [Installation](docs/build_docker_images.md)
-2. [Gateway example](docs/demo_fsw_gateway.md)
+2. [Gateway Demo](docs/demo_gateway.md)
+3. [Viper Demo](docs/demo_viper.md)
