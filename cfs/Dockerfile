@@ -40,7 +40,7 @@ RUN echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
 USER ${USERNAME}
 
 # Set up sourcing
-COPY --chown=${USERNAME}:${USERNAME} ./config/fsw_entrypoint.sh ${CODE_DIR}/entrypoint.sh
+COPY --chown=${USERNAME}:${USERNAME} demos/gateway/config/fsw_entrypoint.sh ${CODE_DIR}/entrypoint.sh
 RUN echo 'source ${CODE_DIR}/entrypoint.sh' >> ~/.bashrc
 
 # Set workdir

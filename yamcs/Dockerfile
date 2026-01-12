@@ -22,16 +22,16 @@ COPY rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/*.xtce \
      /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/
 
 # Set working directory
-WORKDIR /yamcs_project
+WORKDIR /yamcs
 
 # Copy pom.xml first for better layer caching
-COPY yamcs_project/pom.xml ./pom.xml
+COPY yamcs/pom.xml ./pom.xml
 
 # Download all dependencies (cached unless pom.xml changes)
 RUN mvn dependency:go-offline -B
 
 # Copy the rest of the project files
-COPY yamcs_project ./
+COPY yamcs/src ./src
 
 # Build the project (only rebuilds when source code changes)
 RUN mvn package

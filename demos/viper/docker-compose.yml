@@ -9,7 +9,7 @@ services:
       - |
           exec /isaac-sim/runapp.sh \
             --no-window=false \
-            --exec "open_stage.py '/viper/viper_on_moon.usd'"
+            --exec "open_stage.py '/viper/scene/viper_on_moon.usd'"
     tty: true
 
     # GPU access
@@ -23,7 +23,7 @@ services:
     # ⬅️ custom network instead of host
     networks:
       spaceip:
-        ipv4_address: 10.5.0.10
+        ipv4_address: 10.6.0.10
 
     ipc: host
 
@@ -41,14 +41,16 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
 
       # Workspace
-      - ${PWD}/demos/viper:/viper
+      - ./scene:/viper/scene
+      # - /dragoman/demos/viper/scene:/viper/scene
+      # - /home/traclabs/tmp/blabla:/blabla
 
       # Isaac Sim caches
-      - ${HOME}/docker/isaac-sim/cache/kit:/isaac-sim/kit/cache:rw
-      - ${HOME}/docker/isaac-sim/cache/ov:/root/.cache/ov:rw
-      - ${HOME}/docker/isaac-sim/cache/pip:/root/.cache/pip:rw
-      - ${HOME}/docker/isaac-sim/cache/glcache:/root/.cache/nvidia/GLCache:rw
-      - ${HOME}/docker/isaac-sim/cache/computecache:/root/.nv/ComputeCache:rw
+      - ${HOME}/docker/isaac-sim/cache/kit:/isaac-sim/kit/cache
+      - ${HOME}/docker/isaac-sim/cache/ov:/root/.cache/ov
+      - ${HOME}/docker/isaac-sim/cache/pip:/root/.cache/pip
+      - ${HOME}/docker/isaac-sim/cache/glcache:/root/.cache/nvidia/GLCache
+      - ${HOME}/docker/isaac-sim/cache/computecache:/root/.nv/ComputeCache
 
 
   test-container-jazzy:
@@ -60,7 +62,7 @@ services:
 
     networks:
       spaceip:
-        ipv4_address: 10.5.0.6
+        ipv4_address: 10.6.0.6
 
     environment:
       DISPLAY: ${DISPLAY}
@@ -79,5 +81,5 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.5.0.0/16
-          gateway: 10.5.0.1
+        - subnet: 10.6.0.0/16
+          gateway: 10.6.0.1

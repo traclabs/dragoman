@@ -1,0 +1,9 @@
+build:
+  symlink-install: true
+  cmake-args:
+    - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  packages-skip: 
+    - trac_ik_kinematics_plugin
+  packages-ignore:
+    - trac_ik_kinematics_plugin
+  

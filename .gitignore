@@ -49,10 +49,10 @@ Thumbs.db
 *.wmv
 
 # ROS generated directories
-ros/src/
-ros/build/
-ros/install/
-ros/log/
+rosws/src/
+rosws/build/
+rosws/install/
+rosws/log/
 edoras_core/
 cfs/cFS/
 
