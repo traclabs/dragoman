@@ -6,13 +6,8 @@ ROSWS="rosws"
 # clone_cfs
 # *******************
 clone_cfs() {
-
   echo "* Cloning cFS and edoras_app"
-  vcs import cfs < cfs/cfs.repos
-
-  pushd cfs
-  git submodule update --init --recursive
-  popd
+  vcs import --recursive cfs < cfs/cfs.repos
 }
 
 # *******************
