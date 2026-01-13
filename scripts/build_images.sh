@@ -5,12 +5,14 @@ echo "Building Docker Images"
 echo "==============================================="
 echo ""
 
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
+
 echo ">>> Building Viper images..."
-./scripts/build_images_viper.sh
+"${SCRIPT_DIR}/build_images_viper.sh"
 
 echo ""
 echo ">>> Building Gateway images..."
-./scripts/build_images_gateway.sh
+"${SCRIPT_DIR}/build_images_gateway.sh"
 
 echo ""
 echo "==============================================="

@@ -3,7 +3,9 @@
 echo ""
 echo "##### Building cfe #####"
 echo ""
-COMPOSE_FILE="demos/gateway/docker-compose.yml"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+COMPOSE_FILE="${PROJECT_ROOT}/demos/gateway/docker-compose.yml"
 CODE_DIR="/code"
 
 build_cfe_code() {
