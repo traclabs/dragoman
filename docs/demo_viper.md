@@ -5,6 +5,11 @@ This demo brings up the NVIDIA Isaac Sim simulator with the VIPER (Volatiles Inv
 
 **Note:** Initial startup may take some time due to shader caching.
 
+Note: To enable GUI apps inside the dev container, run:
+```
+xhost +local:root > /dev/null
+```
+
 Steps
 -----
 

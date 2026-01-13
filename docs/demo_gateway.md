@@ -12,6 +12,10 @@ Think of yamcs as running on a machine on Earth, fsw to be the spacecraft on a r
 Communication looks like:
 rosgsw <--> yamcs <-----------> fsw <--> rosfsw
 
+Note: To enable GUI apps inside the dev container, run:
+```
+xhost +local:root > /dev/null
+```
 
 Steps
 ------
