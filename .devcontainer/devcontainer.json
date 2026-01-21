@@ -14,5 +14,8 @@
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",
     "NVIDIA_DRIVER_CAPABILITIES": "all"  // Enable if using NVIDIA GPU
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
   }
 }

@@ -54,7 +54,7 @@ rosws/build/
 rosws/install/
 rosws/log/
 edoras_core/
-cFS/
+cfs/cFS/
 
 # VScode settings
 # .vscode/

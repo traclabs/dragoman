@@ -1,0 +1,70 @@
+#!/bin/bash
+# Standalone script to run YAMCS server
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+YAMCS_PROJECT_DIR="$SCRIPT_DIR/yamcs_project"
+
+echo "==================================="
+echo "YAMCS Server Launcher"
+echo "==================================="
+echo ""
+
+# Check if yamcs_project directory exists
+if [ ! -d "$YAMCS_PROJECT_DIR" ]; then
+    echo "Error: yamcs_project directory not found at $YAMCS_PROJECT_DIR"
+    exit 1
+fi
+
+# Check if pom.xml exists
+if [ ! -f "$YAMCS_PROJECT_DIR/pom.xml" ]; then
+    echo "Error: pom.xml not found in $YAMCS_PROJECT_DIR"
+    exit 1
+fi
+
+# Check and install Java if needed
+if ! command -v java &> /dev/null; then
+    echo "Java not found. Installing default-jdk..."
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get update && sudo apt-get install -y default-jdk
+    else
+        echo "Error: apt-get not found. Please install Java manually."
+        exit 1
+    fi
+    echo "Java installed successfully."
+    echo ""
+fi
+
+# Check and install Maven if needed
+if ! command -v mvn &> /dev/null; then
+    echo "Maven not found. Installing maven..."
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get update && sudo apt-get install -y maven
+    else
+        echo "Error: apt-get not found. Please install Maven manually."
+        exit 1
+    fi
+    echo "Maven installed successfully."
+    echo ""
+fi
+
+# Display versions
+echo "Java version:"
+java -version 2>&1 | head -n 1
+echo ""
+echo "Maven version:"
+mvn -version | head -n 1
+echo ""
+
+# Navigate to project directory
+cd "$YAMCS_PROJECT_DIR" || exit 1
+
+echo "Starting YAMCS from: $(pwd)"
+echo "Press Ctrl+C to stop YAMCS"
+echo ""
+echo "==================================="
+echo ""
+
+# Run YAMCS
+mvn yamcs:run

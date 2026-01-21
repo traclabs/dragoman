@@ -1,0 +1,86 @@
+services:
+  fsw:
+    image: "fsw-dev"
+    #command: "sleep infinity"  # Useful for debugging
+    command: "./core-cpu2"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    sysctls:
+      - fs.mqueue.msg_max=64
+    networks:
+      spaceip:
+        ipv4_address: 10.5.0.3
+    build:
+      context: ../../
+      dockerfile: cfs/Dockerfile
+      target: "fsw-dev"
+      args:
+        - USER_UID=${UID:-1000}
+    volumes:
+      - "../../cfs/cFS:/code/cFS"
+      - "./edoras_core:/code/edoras_core"
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+      - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
+    working_dir: /code/cFS/build/exe/cpu2
+
+  yamcs:
+    image: "yamcs"
+    #command: "sleep infinity"  # Useful for debugging
+    command: ["mvn", "yamcs:run"]
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    networks:
+      spaceip:
+        ipv4_address: 10.5.0.2
+    build:
+      context: ../../
+      dockerfile: yamcs/Dockerfile
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+      - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
+
+  rosfsw:
+    image: "rosws"
+    #command: "sleep infinity"  # Useful for debugging
+    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_fsw_sim gateway_single_arm_flight_demo.launch.py cfs_ip:=10.5.0.3 robot_ip:=10.5.0.4"]
+    environment:
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    networks:
+      spaceip:
+        ipv4_address: 10.5.0.4
+    build:
+      context: ../../
+      dockerfile: rosws/Dockerfile
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+      - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
+
+  rosgsw:
+    image: "rosws"
+    #command: "sleep infinity"  # Useful for debugging
+    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_ground_example gateway_ground.launch.py yamcs_url:=10.5.0.2:8090"]
+    environment:
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    networks:
+      spaceip:
+        ipv4_address: 10.5.0.6
+    build:
+      context: ../../
+      dockerfile: rosws/Dockerfile
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+      - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
+
+networks:
+  spaceip:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

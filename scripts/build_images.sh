@@ -1,35 +1,21 @@
 #!/usr/bin/env bash
 
-echo ""
-echo "##### Building base images #####"
-echo ""
-COMPOSE_FILE="docker-compose.yml"
-
-while getopts 'c:' opt ; do
-  case "$opt" in
-  c) COMPOSE_FILE=$OPTARG ;;
-  esac
-done
-
-echo "...Using COMPOSE_FILE: ${COMPOSE_FILE}..."
-
-echo ""
-echo "##### Building fsw, rosgsw and rosfsw #####"
+echo "==============================================="
+echo "Building Docker Images"
+echo "==============================================="
 echo ""
 
-build_images_code() {
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
-  env UID=${UID} docker compose -f ${COMPOSE_FILE} build
-  ret=$?
-  if [ $ret -ne 0 ]; then
-    echo "!! Failed in building base image for fsw, rosgsw and rosfsw services !!"
-    return 1
-  fi
+echo ">>> Building Viper images..."
+"${SCRIPT_DIR}/build_images_viper.sh"
 
-  echo ""
-  echo "##### Done! #####"
-  return 0
-}
+echo ""
+echo ">>> Building Gateway images..."
+"${SCRIPT_DIR}/build_images_gateway.sh"
 
-build_images_code
+echo ""
+echo "==============================================="
+echo "✓ All images built successfully!"
+echo "==============================================="
 

@@ -10,11 +10,15 @@ repositories:
   dragoman_sandbox:
     type: git
     url: git@bitbucket.org:traclabs/dragoman_sandbox.git
-    version: feat/edoras_comm
+    version: feat/improve-bridge
   ewellix_lift_kit:
     type: git
     url: git@github.com:traclabs/ewellix_lift_kit.git
     version: rolling-devel
+  gateway_demos:
+    type: git
+    url: git@github.com:traclabs/gateway_demos.git
+    version: master
   merlin_mockup_description:
     type: git
     url: git@github.com:NASA-JSC-Robotics/merlin_mockup_description
@@ -35,6 +39,10 @@ repositories:
     type: git
     url: git@github.com:NASA-JSC-Robotics/surface_robotics_mockups_description
     version: humble-devel
+  trac_ik:
+    type: git
+    url: git@bitbucket.org:traclabs/trac_ik.git
+    version: jazzy
   vention_rail:
     type: git
     url: git@github.com:traclabs/vention_rail.git
