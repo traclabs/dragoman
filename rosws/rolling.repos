@@ -47,3 +47,7 @@ repositories:
     type: git
     url: git@github.com:traclabs/vention_rail.git
     version: rolling-devel
+  iss_description:
+    type: git
+    url: git@github.com:traclabs/iss_description.git
+    version: master    
