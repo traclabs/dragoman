@@ -44,7 +44,7 @@ services:
   rosfsw:
     image: "rosws"
     #command: "sleep infinity"  # Useful for debugging
-    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_fsw_sim gateway_single_arm_flight_demo.launch.py cfs_ip:=10.5.0.3 robot_ip:=10.5.0.4"]
+    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_fsw_sim lunar_exploration_flight_demo.launch.py cfs_ip:=10.5.0.3 robot_ip:=10.5.0.4"]
     environment:
       - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
       - DISPLAY=${DISPLAY}
@@ -56,13 +56,14 @@ services:
       context: ../../
       dockerfile: rosws/Dockerfile
     volumes:
+      - "/dev/dri:/dev/dri"
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
 
   rosgsw:
     image: "rosws"
     #command: "sleep infinity"  # Useful for debugging
-    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_ground_example gateway_ground.launch.py yamcs_url:=10.5.0.2:8090"]
+    command: ["/bin/bash", "-c", "source install/setup.bash && ros2 launch dragoman_ground_example lunar_exploration_ground.launch.py yamcs_url:=10.5.0.2:8090"]
     environment:
       - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
       - DISPLAY=${DISPLAY}
@@ -74,6 +75,7 @@ services:
       context: ../../
       dockerfile: rosws/Dockerfile
     volumes:
+      - "/dev/dri:/dev/dri"
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
 
