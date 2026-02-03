@@ -34,7 +34,7 @@ repositories:
   space_ros_demos:
     type: git
     url: git@github.com:traclabs/demos.git
-    version: dragoman
+    version: dragoman_viper
   surface_robotics_mockups_description:
     type: git
     url: git@github.com:NASA-JSC-Robotics/surface_robotics_mockups_description
