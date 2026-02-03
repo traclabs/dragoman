@@ -1,9 +1,9 @@
-Run Gateway single-arm example
+Run Mobile Servicing Sytem demo
 =================================
 
 This demo has 4 docker containers:
 
-* rosgsw: Ground container running ROS2 (Rviz)
+* rosgsw: Ground container that runs ROS2. Communicates with YAMCS.
 * yamcs: Ground container, it runs YAMCS
 * fsw: Spacecraft container, it runs cFS with a demo application.
 * rosfsw: Container that runs the robot with ROS2.
@@ -23,7 +23,7 @@ Steps
 
 1. Start services:
    ```
-   ./scripts/docker_up_gateway.sh
+   ./scripts/docker_up_mobile_servicing_system.sh
    ```
    This will start 4 services: rosgsw, yamcs, fsw, and rosfsw.
 
