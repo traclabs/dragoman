@@ -1,8 +1,9 @@
 Run Gateway single-arm example
 =================================
 
-This demo has 3 docker containers:
+This demo has 4 docker containers:
 
+* rosgsw: Ground container running ROS2 (Rviz)
 * yamcs: Ground container, it runs YAMCS
 * fsw: Spacecraft container, it runs cFS with a demo application.
 * rosfsw: Container that runs the robot with ROS2.

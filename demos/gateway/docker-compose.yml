@@ -56,6 +56,7 @@ services:
       context: ../../
       dockerfile: rosws/Dockerfile
     volumes:
+      - "/dev/dri:/dev/dri"
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
 
@@ -74,6 +75,7 @@ services:
       context: ../../
       dockerfile: rosws/Dockerfile
     volumes:
+      - "/dev/dri:/dev/dri"
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
 
