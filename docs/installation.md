@@ -31,6 +31,16 @@
 
 5. (Optional) Bring up the demo stacks:
 
+     Lunar Exploration: See [Lunar Exploration](demo_lunar_exploration.md) for details
+     ```
+     ./scripts/docker_up_lunar_exploration.sh
+     ```
+
+     Mobile Servicing System: See [Mobile Servicing System](demo_mobile_servicing_system.md) for details
+     ```
+     ./scripts/docker_up_mobile_servicing_system.sh
+     ```
+
      Gateway: See [Gateway Demo](demo_gateway.md) for details
      ```
      ./scripts/docker_up_gateway.sh
@@ -41,12 +51,4 @@
      ./scripts/docker_up_viper.sh
      ```
 
-     Lunar Exploration: See [Lunar Exploration](demo_lunar_exploration.md) for details
-     ```
-     ./scripts/docker_up_lunar_exploration.sh
-     ```
 
-     Mobile Servicing System: See [Mobile Servicing System](demo_mobile_servicing_system.md) for details
-     ```
-     ./scripts/docker_up_mobile_servicing_system.sh
-     ```
