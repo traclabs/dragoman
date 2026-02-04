@@ -6,4 +6,4 @@ repositories:
   cFS/apps/edoras_app:
     type: git
     url: git@github.com:traclabs/edoras_app.git
-    version: dragoman_gateway    
+    version: dragoman_mobile_servicing_system
