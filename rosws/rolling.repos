@@ -10,7 +10,7 @@ repositories:
   dragoman_sandbox:
     type: git
     url: git@bitbucket.org:traclabs/dragoman_sandbox.git
-    version: feat/improve-bridge
+    version: devel
   ewellix_lift_kit:
     type: git
     url: git@github.com:traclabs/ewellix_lift_kit.git
@@ -18,6 +18,10 @@ repositories:
   gateway_demos:
     type: git
     url: git@github.com:traclabs/gateway_demos.git
+    version: master
+  iss_description:
+    type: git
+    url: git@github.com:traclabs/iss_description.git
     version: master
   merlin_mockup_description:
     type: git
@@ -47,7 +51,3 @@ repositories:
     type: git
     url: git@github.com:traclabs/vention_rail.git
     version: rolling-devel
-  iss_description:
-    type: git
-    url: git@github.com:traclabs/iss_description.git
-    version: master
