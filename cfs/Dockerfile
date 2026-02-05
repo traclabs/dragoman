@@ -18,7 +18,7 @@ SHELL ["/bin/bash", "-c"]
 # Create a brash user
 ENV USERNAME ubuntu
 ENV CODE_DIR=/code
-ENV CFS_LOCAL=cFS
+ENV CFS_LOCAL=cfs/cFS
 
 # Dev container arguments
 ARG USER_UID=1000
@@ -56,9 +56,10 @@ COPY --chown=${USERNAME}:${USERNAME} ${CFS_LOCAL} ${CODE_DIR}/cFS
 
 # Build cFS
 WORKDIR ${CODE_DIR}/cFS
-RUN make SIMULATION=native prep && \
- make && \
- make install
+RUN --mount=type=cache,target=${CODE_DIR}/cFS/build,uid=${USER_UID},gid=${USER_GID} \
+    make SIMULATION=native prep && \
+    make && \
+    make install
 
 # Dev environment has cFS built on mount volume
 WORKDIR ${CODE_DIR}/cFS/build/exe/cpu2

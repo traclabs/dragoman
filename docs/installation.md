@@ -7,29 +7,28 @@
      cd dragoman
      ```
 
-2. Clone software (cFS and dragoman ROS workspace)
+1. Clone software (cFS and dragoman ROS workspace)
 
      ```
      ./scripts/clone_code.sh
      ```
 
-3. Build base images (gateway + viper):
+1. Build base images (gateway + viper):
 
      ```
      ./scripts/build_images.sh
      ```
-     
-   Note that we currently have 4 demos: Viper (uses Nvidia ISAAC Gym) and Gateway/Lunar Exploration/Mobile Servicing System. The last three
+
+   Note that we currently have 4 demos: Viper (uses Nvidia ISAAC Sim) and Gateway/Lunar Exploration/Mobile Servicing System. The last three
    use ROS2 as a backend for simulating the robot assets, hence they share the same image. Building the Gateway image thus produces the same
    image that is used by either of the other 2 demos.
 
-4. Build cFS app (uses gateway compose file):
+1. (Optional) Bring up the demo stacks:
 
+     Note: To enable GUI apps inside the dev container, run:
      ```
-     ./scripts/build_cfe.sh
+     xhost +local:root > /dev/null
      ```
-
-5. (Optional) Bring up the demo stacks:
 
      Lunar Exploration: See [Lunar Exploration](demo_lunar_exploration.md) for details
      ```

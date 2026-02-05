@@ -4,6 +4,13 @@ This workspace contains the docker and configuration files necessary to build an
 
 **Note:** Git LFS must be installed before cloning this repository.
 
-1. [Installation](docs/installation.md)
-2. [Gateway Demo](docs/demo_gateway.md)
-3. [Viper Demo](docs/demo_viper.md)
+### Installation
+
+* [Installation](docs/installation.md)
+
+### Demos
+
+1. [Gateway Demo](docs/demo_gateway.md)
+1. [Lunar Exploration Demo](docs/demo_lunar_exploration.md)
+1. [Mobile Servicing System Demo](docs/demo_mobile_servicing_system.md)
+1. [Viper Demo](docs/demo_viper.md)

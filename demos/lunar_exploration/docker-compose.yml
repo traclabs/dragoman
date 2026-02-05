@@ -1,6 +1,6 @@
 services:
   fsw:
-    image: "fsw-dev"
+    image: "fsw"
     #command: "sleep infinity"  # Useful for debugging
     command: "./core-cpu2"
     environment:
@@ -14,12 +14,10 @@ services:
     build:
       context: ../../
       dockerfile: cfs/Dockerfile
-      target: "fsw-dev"
+      target: "fsw"
       args:
         - USER_UID=${UID:-1000}
     volumes:
-      - "../../cfs/cFS:/code/cFS"
-      - "./edoras_core:/code/edoras_core"
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
     working_dir: /code/cFS/build/exe/cpu2

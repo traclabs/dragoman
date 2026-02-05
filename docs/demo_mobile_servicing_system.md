@@ -21,6 +21,11 @@ xhost +local:root > /dev/null
 Steps
 ------
 
+1. Build docker images, (if not built already):
+   ```
+   ./scripts/build_images_mobile_servicing_system.sh
+   ```
+
 1. Start services:
    ```
    ./scripts/docker_up_mobile_servicing_system.sh
