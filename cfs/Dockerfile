@@ -18,7 +18,7 @@ SHELL ["/bin/bash", "-c"]
 # Create a brash user
 ENV USERNAME ubuntu
 ENV CODE_DIR=/code
-ENV CFS_LOCAL=cFS
+ENV CFS_LOCAL=cfs/cFS
 
 # Dev container arguments
 ARG USER_UID=1000
@@ -43,9 +43,6 @@ USER ${USERNAME}
 COPY --chown=${USERNAME}:${USERNAME} demos/gateway/config/fsw_entrypoint.sh ${CODE_DIR}/entrypoint.sh
 RUN echo 'source ${CODE_DIR}/entrypoint.sh' >> ~/.bashrc
 
-# Set workdir
-WORKDIR ${CODE_DIR}/cFS/build/exe/cpu2
-
 ##################################################
 # Production
 ##################################################
@@ -54,11 +51,13 @@ FROM fsw-dev AS fsw
 # Copy cFS
 COPY --chown=${USERNAME}:${USERNAME} ${CFS_LOCAL} ${CODE_DIR}/cFS
 
-# Build cFS
+# Build cFS into a cache mount, then snapshot it into the image
 WORKDIR ${CODE_DIR}/cFS
-RUN make SIMULATION=native prep && \
- make && \
- make install
+RUN --mount=type=cache,target=/cache/cfs-build,uid=${USER_UID},gid=${USER_GID} \
+    make O=/cache/cfs-build SIMULATION=native prep && \
+    make O=/cache/cfs-build && \
+    make O=/cache/cfs-build install && \
+    cp -a /cache/cfs-build ${CODE_DIR}/cFS/build
 
 # Dev environment has cFS built on mount volume
 WORKDIR ${CODE_DIR}/cFS/build/exe/cpu2
