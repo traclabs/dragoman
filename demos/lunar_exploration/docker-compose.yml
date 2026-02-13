@@ -2,7 +2,7 @@ services:
   fsw:
     image: "fsw"
     #command: "sleep infinity"  # Useful for debugging
-    command: "./core-cpu2"
+    command: "./core-cpu1"
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -20,7 +20,7 @@ services:
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:rw"
-    working_dir: /code/cFS/build/exe/cpu2
+    working_dir: /code/cFS/build/exe/cpu1
 
   yamcs:
     image: "yamcs"

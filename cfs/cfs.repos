@@ -1,9 +1,13 @@
 repositories:
   cFS:
     type: git
-    url: git@github.com:traclabs/cFS.git
-    version: edoras
+    url: git@github.com:nasa/cFS.git
+    version: main
   cFS/apps/edoras_app:
     type: git
     url: git@github.com:traclabs/edoras_app.git
-    version: dragoman_mobile_servicing_system
+    version: dragoman_lunar_exploration
+  cFS/dragoman_defs:
+    type: git
+    url: git@bitbucket.org:traclabs/dragoman_defs.git
+    version: main
