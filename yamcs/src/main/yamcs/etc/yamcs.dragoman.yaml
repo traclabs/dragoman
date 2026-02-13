@@ -42,16 +42,21 @@ dataLinks:
     stream: tm_realtime_multi_packet
     port: 10018
     packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
-#  - name: udp-in-gateway
-#    class: org.yamcs.tctm.UdpTmDataLink
-#    stream: tm_realtime_gateway
-#    port: 1235
-    packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
-  - name: udp-in-mobile-servicing-system
+  - name: udp-in-gateway
     class: org.yamcs.tctm.UdpTmDataLink
-    stream: tm_realtime_mobile_servicing_system
-    port: 1235
+    stream: tm_realtime_gateway
+    port: 2234
     packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
+  # - name: udp-in-mobile-servicing-system
+  #   class: org.yamcs.tctm.UdpTmDataLink
+  #   stream: tm_realtime_mobile_servicing_system
+  #   port: 2234
+  #   packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
+  # - name: udp-in-lunar-exploration
+  #   class: org.yamcs.tctm.UdpTmDataLink
+  #   stream: tm_realtime_lunar_exploration
+  #   port: 2234
+  #   packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
 
 
   - name: udp-out-all-types
@@ -77,21 +82,28 @@ dataLinks:
     stream: tc_realtime_multi_packet
     host: localhost
     port: 10028
-#    commandPostprocessorClassName: com.traclabs.dragoman.MyCommandPostprocessor
-#  - name: udp-out-gateway
-#    class: org.yamcs.tctm.UdpTcDataLink
-#    stream: tc_realtime_gateway
-#    host: 10.5.0.3  # Use this for multi-host demo
-#    # host: localhost  # Use this for local host demo
-#    port: 1235
     commandPostprocessorClassName: com.traclabs.dragoman.MyCommandPostprocessor
-  - name: udp-out-mobile-servicing-system
+  - name: udp-out-gateway
     class: org.yamcs.tctm.UdpTcDataLink
-    stream: tc_realtime_mobile_servicing_system
+    stream: tc_realtime_gateway
     host: 10.5.0.3  # Use this for multi-host demo
     # host: localhost  # Use this for local host demo
-    port: 1235
+    port: 1234
     commandPostprocessorClassName: com.traclabs.dragoman.MyCommandPostprocessor
+  # - name: udp-out-mobile-servicing-system
+  #   class: org.yamcs.tctm.UdpTcDataLink
+  #   stream: tc_realtime_mobile_servicing_system
+  #   host: 10.5.0.3  # Use this for multi-host demo
+  #   # host: localhost  # Use this for local host demo
+  #   port: 1234
+  #   commandPostprocessorClassName: com.traclabs.dragoman.MyCommandPostprocessor
+  # - name: udp-out-lunar-exploration
+  #   class: org.yamcs.tctm.UdpTcDataLink
+  #   stream: tc_realtime_lunar_exploration
+  #   host: 10.5.0.3  # Use this for multi-host demo
+  #   # host: localhost  # Use this for local host demo
+  #   port: 1234
+  #   commandPostprocessorClassName: com.traclabs.dragoman.MyCommandPostprocessor
 
 
 mdb:
@@ -113,6 +125,9 @@ mdb:
   - type: xtce
     args:
       file: ../../../rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/MobileServicingSystem.xtce
+  - type: xtce
+    args:
+      file: ../../../rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/LunarExploration.xtce
 
 # Configuration for streams created at server startup
 streamConfig:
@@ -129,12 +144,15 @@ streamConfig:
     - name: "tm_realtime_multi_packet"
       processor: "realtime"
       rootContainer: "/MultiPacket/ccsds_space_packet"
-#    - name: "tm_realtime_gateway"
-#      processor: "realtime"
-#      rootContainer: "/Gateway/ccsds_space_packet"
-    - name: "tm_realtime_mobile_servicing_system"
+    - name: "tm_realtime_gateway"
       processor: "realtime"
-      rootContainer: "/MobileServicingSystem/ccsds_space_packet"      
+      rootContainer: "/Gateway/ccsds_space_packet"
+    # - name: "tm_realtime_mobile_servicing_system"
+    #   processor: "realtime"
+    #   rootContainer: "/MobileServicingSystem/ccsds_space_packet"
+    # - name: "tm_realtime_lunar_exploration"
+    #   processor: "realtime"
+    #   rootContainer: "/LunarExploration/ccsds_space_packet"
     - name: "tm_dump"
   cmdHist: ["cmdhist_realtime", "cmdhist_dump"]
   event: ["events_realtime", "events_dump"]
@@ -153,9 +171,12 @@ streamConfig:
     - name: "tc_realtime_multi_packet"
       processor: "realtime"
       tcPatterns: ["/MultiPacket/.*"]
-#    - name: "tc_realtime_gateway"
-#      processor: "realtime"
-#      tcPatterns: ["/Gateway/.*"]
-    - name: "tc_realtime_mobile_servicing_system"
+    - name: "tc_realtime_gateway"
       processor: "realtime"
-      tcPatterns: ["/MobileServicingSystem/.*"]      
+      tcPatterns: ["/Gateway/.*"]
+    # - name: "tc_realtime_mobile_servicing_system"
+    #   processor: "realtime"
+    #   tcPatterns: ["/MobileServicingSystem/.*"]
+    # - name: "tc_realtime_lunar_exploration"
+    #   processor: "realtime"
+    #   tcPatterns: ["/LunarExploration/.*"]
