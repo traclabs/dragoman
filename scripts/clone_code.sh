@@ -12,6 +12,7 @@ ROSWS="rosws"
 clone_cfs() {
   echo "* Cloning cFS and edoras_app"
   vcs import --recursive cfs < cfs/cfs.repos
+  cp cfs/cFS/cfe/cmake/Makefile.sample cfs/cFS/Makefile
 }
 
 # *******************
