@@ -54,6 +54,8 @@ COPY --chown=${USERNAME}:${USERNAME} ${CFS_LOCAL} ${CODE_DIR}/cFS
 # Build cFS into a cache mount, then snapshot it into the image
 WORKDIR ${CODE_DIR}/cFS
 RUN --mount=type=cache,target=/cache/cfs-build,uid=${USER_UID},gid=${USER_GID} \
+    # Uncomment this line below to remove cache before build
+    # rm -rf /cache/cfs-build/* && \
     mkdir -p ${CODE_DIR}/cFS/build && \
     make O=/cache/cfs-build SIMULATION=native prep && \
     make O=/cache/cfs-build && \
