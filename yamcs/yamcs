@@ -4,22 +4,15 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-YAMCS_PROJECT_DIR="$SCRIPT_DIR/yamcs_project"
 
 echo "==================================="
 echo "YAMCS Server Launcher"
 echo "==================================="
 echo ""
 
-# Check if yamcs_project directory exists
-if [ ! -d "$YAMCS_PROJECT_DIR" ]; then
-    echo "Error: yamcs_project directory not found at $YAMCS_PROJECT_DIR"
-    exit 1
-fi
-
 # Check if pom.xml exists
-if [ ! -f "$YAMCS_PROJECT_DIR/pom.xml" ]; then
-    echo "Error: pom.xml not found in $YAMCS_PROJECT_DIR"
+if [ ! -f "$SCRIPT_DIR/pom.xml" ]; then
+    echo "Error: pom.xml not found in $SCRIPT_DIR"
     exit 1
 fi
 
