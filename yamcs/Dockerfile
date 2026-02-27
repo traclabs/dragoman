@@ -14,13 +14,6 @@ RUN apt-get update && \
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Create directory structure to maintain relative paths
-RUN mkdir -p /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce
-
-# Copy XTCE files to maintain the same relative path structure
-COPY rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/*.xtce \
-     /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/
-
 # Set working directory
 WORKDIR /yamcs
 
@@ -35,6 +28,13 @@ COPY yamcs/src ./src
 
 # Build the project (only rebuilds when source code changes)
 RUN mvn package
+
+# Create directory structure to maintain relative paths
+RUN mkdir -p /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce
+
+# Copy XTCE files to maintain the same relative path structure
+COPY rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/*.xtce \
+     /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/
 
 # Run yamcs using the pre-compiled bundle
 CMD ["mvn", "yamcs:run"]
