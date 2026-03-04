@@ -1,8 +1,8 @@
 services:
   fsw:
     image: "fsw"
-    #command: "sleep infinity"  # Useful for debugging
-    command: "./core-cpu4"
+#    command: "sleep infinity"  # Useful for debugging
+    command: ["/bin/bash", "-c", "./script_delay.sh 10.5.0.2 650 && ./core-cpu4"]
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -11,6 +11,11 @@ services:
     networks:
       spaceip:
         ipv4_address: 10.5.0.3
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    cap_drop:
+      - ALL        
     build:
       context: ../../
       dockerfile: cfs/Dockerfile
@@ -24,14 +29,19 @@ services:
 
   yamcs:
     image: "yamcs"
-    #command: "sleep infinity"  # Useful for debugging
-    command: ["mvn", "yamcs:run"]
+#    command: "sleep infinity"  # Useful for debugging
+    command: ["/bin/bash", "-c", "./script_delay.sh 10.5.0.3 650 && ./core-cpu4 && mvn yamcs:run"]
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
     networks:
       spaceip:
         ipv4_address: 10.5.0.2
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    cap_drop:
+      - ALL        
     build:
       context: ../../
       dockerfile: yamcs/Dockerfile
