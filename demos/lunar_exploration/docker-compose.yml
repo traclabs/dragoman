@@ -2,7 +2,7 @@ services:
   fsw:
     image: "fsw"
 #    command: "sleep infinity"  # Useful for debugging
-    command: ["/bin/bash", "-c", "./script_delay.sh 10.5.0.2 650 && ./core-cpu4"]
+    command: ["/bin/bash", "-c", "/code/./script_delay_with_sudo.sh 10.5.0.2 650 && ./core-cpu4"]
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -30,7 +30,7 @@ services:
   yamcs:
     image: "yamcs"
 #    command: "sleep infinity"  # Useful for debugging
-    command: ["/bin/bash", "-c", "./script_delay.sh 10.5.0.3 650 && ./core-cpu4 && mvn yamcs:run"]
+    command: ["/bin/bash", "-c", "/rosws/./script_delay.sh 10.5.0.3 650 && mvn yamcs:run"]
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1

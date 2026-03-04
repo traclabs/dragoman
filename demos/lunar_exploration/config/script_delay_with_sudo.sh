@@ -13,8 +13,8 @@ MS="$2"
 
 echo "Delayed IP: ${OTHER_IP_ADDRESS}"
 echo "Time: ${MS}"
-tc qdisc add dev eth0 root handle 1: htb
-tc class add dev eth0 parent 1: classid 1:1 htb rate 1000mbit
-tc qdisc add dev eth0 parent 1:1 handle 10: netem delay ${MS}ms
-tc filter add dev eth0 protocol ip parent 1:0 prio 1 u32 match ip dst $OTHER_IP_ADDRESS/32 flowid 1:1
+sudo tc qdisc add dev eth0 root handle 1: htb
+sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1000mbit
+sudo tc qdisc add dev eth0 parent 1:1 handle 10: netem delay ${MS}ms
+sudo tc filter add dev eth0 protocol ip parent 1:0 prio 1 u32 match ip dst $OTHER_IP_ADDRESS/32 flowid 1:1
 

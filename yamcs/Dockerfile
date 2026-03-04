@@ -39,7 +39,7 @@ COPY rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/*.xtce \
      /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/
 
 # Copy script for simulating delay in communication
-COPY --chown=${USERNAME}:${USERNAME} demos/lunar_exploration/config/script_delay.sh ${CODE_DIR}/script_delay.sh
+COPY --chown=${USERNAME}:${USERNAME} demos/lunar_exploration/config/script_delay.sh /rosws/script_delay.sh
 
 # Run yamcs using the pre-compiled bundle
 CMD ["mvn", "yamcs:run"]

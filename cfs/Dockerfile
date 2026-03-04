@@ -46,7 +46,7 @@ COPY --chown=${USERNAME}:${USERNAME} demos/gateway/config/fsw_entrypoint.sh ${CO
 RUN echo 'source ${CODE_DIR}/entrypoint.sh' >> ~/.bashrc
 
 # Copy script for simulating delay in communication
-COPY --chown=${USERNAME}:${USERNAME} demos/lunar_exploration/config/script_delay.sh ${CODE_DIR}/script_delay.sh
+COPY --chown=${USERNAME}:${USERNAME} demos/lunar_exploration/config/script_delay_with_sudo.sh ${CODE_DIR}/script_delay_with_sudo.sh
 
 
 ##################################################
