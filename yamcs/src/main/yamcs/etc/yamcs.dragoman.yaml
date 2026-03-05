@@ -57,6 +57,11 @@ dataLinks:
     stream: tm_realtime_lunar_exploration
     port: 2237
     packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
+  - name: udp-in-lunar-exploration-dsn
+    class: org.yamcs.tctm.UdpTmDataLink
+    stream: tm_realtime_lunar_exploration_dsn
+    port: 2238
+    packetPreprocessorClassName: com.traclabs.dragoman.MyPacketPreprocessor
 
 
   - name: udp-out-all-types
@@ -152,7 +157,10 @@ streamConfig:
       rootContainer: "/MobileServicingSystem/ccsds_space_packet"
     - name: "tm_realtime_lunar_exploration"
       processor: "realtime"
-      rootContainer: "/LunarExploration/ccsds_space_packet"
+      rootContainer: "/LunarExploration/CfsTelemetryPacket"
+    - name: "tm_realtime_lunar_exploration_dsn"
+      processor: "realtime"
+      rootContainer: "/LunarExploration/GroundTelemetryPacket"
     - name: "tm_dump"
   cmdHist: ["cmdhist_realtime", "cmdhist_dump"]
   event: ["events_realtime", "events_dump"]
