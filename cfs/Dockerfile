@@ -10,6 +10,8 @@ RUN apt update && apt install -y \
   pkg-config \
   sudo \
   git-lfs \
+  iproute2 \
+  iputils-ping \  
   && rm -rf /var/lib/apt/lists/*
 
 # Switch to bash shell
@@ -42,6 +44,10 @@ USER ${USERNAME}
 # Set up sourcing
 COPY --chown=${USERNAME}:${USERNAME} demos/gateway/config/fsw_entrypoint.sh ${CODE_DIR}/entrypoint.sh
 RUN echo 'source ${CODE_DIR}/entrypoint.sh' >> ~/.bashrc
+
+# Copy script for simulating delay in communication
+COPY --chown=${USERNAME}:${USERNAME} demos/lunar_exploration/config/script_delay_with_sudo.sh ${CODE_DIR}/script_delay_with_sudo.sh
+
 
 ##################################################
 # Production

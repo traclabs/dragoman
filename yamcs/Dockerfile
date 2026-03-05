@@ -8,6 +8,8 @@ RUN apt-get update && \
     apt-get install -y \
     openjdk-17-jdk \
     maven \
+    iproute2 \
+    iputils-ping \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Java environment variables
@@ -35,6 +37,9 @@ RUN mkdir -p /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce
 # Copy XTCE files to maintain the same relative path structure
 COPY rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/*.xtce \
      /rosws/src/dragoman_sandbox/dragoman_sample_msgs/xtce/
+
+# Copy script for simulating delay in communication
+COPY --chown=${USERNAME}:${USERNAME} demos/lunar_exploration/config/script_delay.sh /rosws/script_delay.sh
 
 # Run yamcs using the pre-compiled bundle
 CMD ["mvn", "yamcs:run"]
