@@ -1,0 +1,85 @@
+{
+  "$schema": "https://yamcs.org/schema/stack.schema.json",
+  "steps": [
+    {
+      "type": "command",
+      "name": "/LunarExploration/NavigationPosePacket",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "pose",
+          "value": {
+            "x": "66",
+            "y": "339",
+            "theta": "-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Waypoint 1 (66, 339, -2.0) reached"
+    },
+    {
+      "type": "command",
+      "name": "/LunarExploration/NavigationPosePacket",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "pose",
+          "value": {
+            "x": "72",
+            "y": "315",
+            "theta": "2.3"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Waypoint 2 (74, 315, 2.3) reached"
+    },
+    {
+      "type": "command",
+      "name": "/LunarExploration/NavigationPosePacket",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "pose",
+          "value": {
+            "x": "44",
+            "y": "327",
+            "theta": "-0.4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Waypoint 3 (44, 327, -0.4) reached"
+    },
+    {
+      "type": "command",
+      "name": "/LunarExploration/NavigationPosePacket",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "pose",
+          "value": {
+            "x": "56",
+            "y": "341",
+            "theta": "-1.4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Waypoint 4 (56, 341, -1.4) reached"
+    }
+  ],
+  "advancement": {
+    "acknowledgment": "Acknowledge_Queued",
+    "wait": 0
+  }
+}
