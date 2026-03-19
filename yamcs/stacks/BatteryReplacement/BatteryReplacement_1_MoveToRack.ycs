@@ -1,0 +1,140 @@
+{
+  "$schema": "https://yamcs.org/schema/stack.schema.json",
+  "steps": [
+    {
+      "type": "text",
+      "text": "Moving Canadarm2 to battery rack"
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IDLE"
+        }
+      ]
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_rack_1"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 moving to rack position 1"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_rack_2"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 moving to rack position 2"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_rack_3"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 positioned below battery rack"
+    }
+  ],
+  "advancement": {
+    "acknowledgment": "Acknowledge_Queued",
+    "wait": 0
+  }
+}

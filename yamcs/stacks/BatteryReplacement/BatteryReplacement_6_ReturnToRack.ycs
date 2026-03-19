@@ -1,0 +1,218 @@
+{
+  "$schema": "https://yamcs.org/schema/stack.schema.json",
+  "steps": [
+    {
+      "type": "text",
+      "text": "Returning to battery rack"
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IDLE"
+        }
+      ]
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_pallet_4"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 moving back to pallet position 4"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_pallet_3"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 at pallet position 3"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_pallet_2"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 at pallet position 2"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_pallet_1"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 at pallet position 1"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "canadarm"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_rack_3"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.canadarm2",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 moving towards battery rack position 3"
+    }
+  ],
+  "advancement": {
+    "acknowledgment": "Acknowledge_Queued",
+    "wait": 0
+  }
+}
