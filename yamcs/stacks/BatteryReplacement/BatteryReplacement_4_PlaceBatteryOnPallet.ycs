@@ -2,10 +2,6 @@
   "$schema": "https://yamcs.org/schema/stack.schema.json",
   "steps": [
     {
-      "type": "text",
-      "text": "Placing old battery on pallet"
-    },
-    {
       "type": "verify",
       "condition": [
         {
@@ -14,6 +10,10 @@
           "value": "IDLE"
         }
       ]
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 moving to place_on_pallet position 1"
     },
     {
       "type": "command",
@@ -52,7 +52,7 @@
     },
     {
       "type": "text",
-      "text": "Dextre arm 1 placing battery on pallet position 1"
+      "text": "Dextre arm 1 moving to place_on_pallet position 2"
     },
     {
       "type": "command",
@@ -91,7 +91,7 @@
     },
     {
       "type": "text",
-      "text": "Releasing battery on pallet"
+      "text": "Releasing battery s4_truss_23_battery_top_right"
     },
     {
       "type": "command",
@@ -105,8 +105,12 @@
       ]
     },
     {
+      "type": "sleep",
+      "duration": 3000
+    },
+    {
       "type": "text",
-      "text": "Battery detached"
+      "text": "Dextre arm 1 retracting from pallet"
     },
     {
       "type": "command",
@@ -142,10 +146,6 @@
           "value": "DONE"
         }
       ]
-    },
-    {
-      "type": "text",
-      "text": "Dextre arm 1 retracting from pallet"
     }
   ],
   "advancement": {

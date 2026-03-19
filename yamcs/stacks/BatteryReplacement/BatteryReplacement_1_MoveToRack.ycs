@@ -2,10 +2,6 @@
   "$schema": "https://yamcs.org/schema/stack.schema.json",
   "steps": [
     {
-      "type": "text",
-      "text": "Moving Canadarm2 to battery rack"
-    },
-    {
       "type": "verify",
       "condition": [
         {
@@ -14,6 +10,10 @@
           "value": "IDLE"
         }
       ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 moving to rack position 1"
     },
     {
       "type": "command",
@@ -52,7 +52,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 moving to rack position 1"
+      "text": "Canadarm2 moving to rack position 2"
     },
     {
       "type": "command",
@@ -91,7 +91,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 moving to rack position 2"
+      "text": "Canadarm2 moving to rack position 3"
     },
     {
       "type": "command",
@@ -127,10 +127,6 @@
           "value": "DONE"
         }
       ]
-    },
-    {
-      "type": "text",
-      "text": "Canadarm2 positioned below battery rack"
     }
   ],
   "advancement": {

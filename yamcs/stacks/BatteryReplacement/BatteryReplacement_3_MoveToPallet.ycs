@@ -2,10 +2,6 @@
   "$schema": "https://yamcs.org/schema/stack.schema.json",
   "steps": [
     {
-      "type": "text",
-      "text": "Moving Canadarm2 to pallet"
-    },
-    {
       "type": "verify",
       "condition": [
         {
@@ -14,6 +10,10 @@
           "value": "IDLE"
         }
       ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 moving to pallet position 1"
     },
     {
       "type": "command",
@@ -52,7 +52,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 moving towards pallet position 1"
+      "text": "Canadarm2 moving to pallet position 2"
     },
     {
       "type": "command",
@@ -91,7 +91,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 at pallet position 2"
+      "text": "Canadarm2 turning and moving to pallet position 3"
     },
     {
       "type": "command",
@@ -130,7 +130,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 turning and moving towards pallet position 3"
+      "text": "Canadarm2 moving to pallet position 4"
     },
     {
       "type": "command",
@@ -169,7 +169,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 at pallet position 4"
+      "text": "Canadarm2 moving to pallet position 5"
     },
     {
       "type": "command",
@@ -205,10 +205,6 @@
           "value": "DONE"
         }
       ]
-    },
-    {
-      "type": "text",
-      "text": "Canadarm2 at pallet position 5"
     }
   ],
   "advancement": {

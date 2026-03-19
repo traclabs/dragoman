@@ -2,10 +2,6 @@
   "$schema": "https://yamcs.org/schema/stack.schema.json",
   "steps": [
     {
-      "type": "text",
-      "text": "Installing new battery in rack"
-    },
-    {
       "type": "verify",
       "condition": [
         {
@@ -14,6 +10,10 @@
           "value": "IDLE"
         }
       ]
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 moving to rack position 1"
     },
     {
       "type": "command",
@@ -52,7 +52,7 @@
     },
     {
       "type": "text",
-      "text": "Dextre arm 1 at rack position 1 with spare battery"
+      "text": "Dextre arm 1 moving to rack position 2"
     },
     {
       "type": "command",
@@ -66,6 +66,45 @@
         {
           "name": "group_canned_pose",
           "value": "go_to_rack_2"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 moving to rack position 3"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "dextre_arm_1"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_rack_3"
         }
       ]
     },
@@ -105,8 +144,12 @@
       ]
     },
     {
+      "type": "sleep",
+      "duration": 3000
+    },
+    {
       "type": "text",
-      "text": "Spare battery installed and detached"
+      "text": "Dextre arm 1 retracting from battery rack to position 1"
     },
     {
       "type": "command",
@@ -144,10 +187,6 @@
       ]
     },
     {
-      "type": "text",
-      "text": "Dextre arm 1 retracting from battery rack"
-    },
-    {
       "type": "verify",
       "condition": [
         {
@@ -156,6 +195,10 @@
           "value": "IDLE"
         }
       ]
+    },
+    {
+      "type": "text",
+      "text": "Canadarm2 returning to pallet position 1"
     },
     {
       "type": "command",
@@ -194,7 +237,7 @@
     },
     {
       "type": "text",
-      "text": "Canadarm2 returning to pallet position 1"
+      "text": "Canadarm2 moving to pallet position 2"
     },
     {
       "type": "command",
@@ -230,10 +273,6 @@
           "value": "DONE"
         }
       ]
-    },
-    {
-      "type": "text",
-      "text": "Battery Replacement Sequence Complete"
     }
   ],
   "advancement": {

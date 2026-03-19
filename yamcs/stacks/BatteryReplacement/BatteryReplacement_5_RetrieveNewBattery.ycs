@@ -2,10 +2,6 @@
   "$schema": "https://yamcs.org/schema/stack.schema.json",
   "steps": [
     {
-      "type": "text",
-      "text": "Retrieving new battery from pallet"
-    },
-    {
       "type": "verify",
       "condition": [
         {
@@ -16,43 +12,8 @@
       ]
     },
     {
-      "type": "command",
-      "name": "/MobileServicingSystem/send_canned_pose",
-      "extraOptions": [],
-      "arguments": [
-        {
-          "name": "group_name",
-          "value": "dextre_arm_1"
-        },
-        {
-          "name": "group_canned_pose",
-          "value": "go_to_spare_1"
-        }
-      ]
-    },
-    {
-      "type": "verify",
-      "condition": [
-        {
-          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
-          "operator": "eq",
-          "value": "IN_PROGRESS"
-        }
-      ]
-    },
-    {
-      "type": "verify",
-      "condition": [
-        {
-          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
-          "operator": "eq",
-          "value": "DONE"
-        }
-      ]
-    },
-    {
       "type": "text",
-      "text": "Dextre arm 1 moving towards spare battery position 1"
+      "text": "Dextre arm 1 moving to spare battery position 2"
     },
     {
       "type": "command",
@@ -91,7 +52,7 @@
     },
     {
       "type": "text",
-      "text": "Dextre arm 1 grasping spare battery"
+      "text": "Grasping spare battery"
     },
     {
       "type": "command",
@@ -105,8 +66,12 @@
       ]
     },
     {
+      "type": "sleep",
+      "duration": 3000
+    },
+    {
       "type": "text",
-      "text": "Spare battery attached"
+      "text": "Dextre arm 1 retracting with spare battery to carry position 1"
     },
     {
       "type": "command",
@@ -145,7 +110,7 @@
     },
     {
       "type": "text",
-      "text": "Dextre arm 1 retracting with spare battery position 1"
+      "text": "Dextre arm 1 carrying spare battery to position 2"
     },
     {
       "type": "command",
@@ -184,7 +149,7 @@
     },
     {
       "type": "text",
-      "text": "Dextre arm 1 carrying spare battery position 2"
+      "text": "Dextre arm 1 moving to zero position"
     },
     {
       "type": "command",
@@ -220,10 +185,6 @@
           "value": "DONE"
         }
       ]
-    },
-    {
-      "type": "text",
-      "text": "Dextre arm 1 at zero position with spare battery"
     }
   ],
   "advancement": {
