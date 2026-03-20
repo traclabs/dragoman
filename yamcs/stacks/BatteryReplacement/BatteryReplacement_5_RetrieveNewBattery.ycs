@@ -1,0 +1,194 @@
+{
+  "$schema": "https://yamcs.org/schema/stack.schema.json",
+  "steps": [
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "IDLE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 moving to spare battery position 2"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "dextre_arm_1"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "go_to_spare_2"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Grasping spare battery"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/GraspBattery",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "battery_name",
+          "value": "spare_battery"
+        }
+      ]
+    },
+    {
+      "type": "sleep",
+      "duration": 3000
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 retracting with spare battery to carry position 1"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "dextre_arm_1"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "carry_spare_1"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 carrying spare battery to position 2"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "dextre_arm_1"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "carry_spare_2"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Dextre arm 1 moving to zero position"
+    },
+    {
+      "type": "command",
+      "name": "/MobileServicingSystem/send_canned_pose",
+      "extraOptions": [],
+      "arguments": [
+        {
+          "name": "group_name",
+          "value": "dextre_arm_1"
+        },
+        {
+          "name": "group_canned_pose",
+          "value": "zero"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "type": "verify",
+      "condition": [
+        {
+          "parameter": "/MobileServicingSystem/motion_command_status.dextre_arm_1",
+          "operator": "eq",
+          "value": "DONE"
+        }
+      ]
+    }
+  ],
+  "advancement": {
+    "acknowledgment": "Acknowledge_Queued",
+    "wait": 0
+  }
+}

@@ -35,6 +35,10 @@ repositories:
     type: git
     url: git@github.com:tylerjw/serial.git
     version: ros2
+  space_resources:
+    type: git
+    url: git@github.com:traclabs/space_resources.git
+    version: master
   space_ros_demos:
     type: git
     url: git@github.com:traclabs/demos.git
