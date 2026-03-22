@@ -28,8 +28,8 @@
         {
           "name": "pose",
           "value": {
-            "x": "72",
-            "y": "315",
+            "x": "69",
+            "y": "323",
             "theta": "2.3"
           }
         }
@@ -37,7 +37,7 @@
     },
     {
       "type": "text",
-      "text": "Waypoint 2 (74, 315, 2.3) reached"
+      "text": "Waypoint 2 (69, 323, 2.3) reached"
     },
     {
       "type": "command",
@@ -47,16 +47,16 @@
         {
           "name": "pose",
           "value": {
-            "x": "44",
+            "x": "53",
             "y": "327",
-            "theta": "-0.4"
+            "theta": "0.7"
           }
         }
       ]
     },
     {
       "type": "text",
-      "text": "Waypoint 3 (44, 327, -0.4) reached"
+      "text": "Waypoint 3 (53, 327, 0.7) reached"
     },
     {
       "type": "command",
@@ -67,15 +67,15 @@
           "name": "pose",
           "value": {
             "x": "56",
-            "y": "341",
-            "theta": "-1.4"
+            "y": "338",
+            "theta": "-0.7"
           }
         }
       ]
     },
     {
       "type": "text",
-      "text": "Waypoint 4 (56, 341, -1.4) reached"
+      "text": "Waypoint 4 (56, 338, -0.7) reached"
     }
   ],
   "advancement": {
