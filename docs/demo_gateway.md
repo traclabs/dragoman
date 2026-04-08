@@ -13,7 +13,7 @@ Think of yamcs as running on a machine on Earth, fsw to be the spacecraft on a r
 Communication looks like:
 rosgsw <--> yamcs <-----------> fsw <--> rosfsw
 
-Note: To enable GUI apps inside the dev container, run:
+Note: You may need to enable xhost for GUI apps to come up for the demos. Run:
 ```
 xhost +local:root > /dev/null
 ```
@@ -34,6 +34,6 @@ Steps
 
 1. In another browser, open YAMCS: http://10.5.0.2:8090
 
-1. When you work with cFS, you have to request to have telemetry to be sent back to the ground. It is not sent back by default at startup. To request the telemetry to be sent, go to YAMCS and send a TOLab command. In the argument section, you'll write "10.5.0.2", this is the address of the ground machine, which is the machine where we want to receive the telemetry data. You can verify that data is coming in by checking the Telemetry/Parameter tab.
+1. Go to Commanding > Send a command. Click on ``LunarExploration/`` and select ``TOLabEnablePacket``. In the argument section under ``dest_ip``, write ``10.5.0.2``, and click on Send. This will enable the telemetry to be sent back to the ground. You should see telemetry from the Lunar Gateway in RViz now.
 
-1. Now you are ready to command the arm. In the Command Tab, you can enter a 3D pose to command the arm to move, for instance, you can enter a pos of 1.0, 1.0, 2.0 and a rotation of 0.0, 0.0, 0.0, 1.0. You should see the arm moving in VNC. If you look at the Telemetry/Parameter tab for the joint states, you should see the values changing as the robot moves. Notice too that the joint values vary at a slower rate than real time (around 1Hz), this is because we have our cFS app set up so the telemetry is being sent back to a lower rate.
+1. Go to Commanding > Send a command. For ee_pose, enter 1, 1, 2, 0, 0, 0, 1. This corresponds to a pose of position(x,y,z) - [1.0, 1.0, 2.0] and quaternion(x,y,z,w) - [0.0, 0.0, 0.0, 1.0]. Click on Send. You should see the robot arm updating in RViz (GROUND) at 1fps.

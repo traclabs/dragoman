@@ -1,6 +1,10 @@
 Run Mobile Servicing Sytem demo
 =================================
 
+Video:
+
+[![](https://img.youtube.com/vi/tZRtDx-bQxo/0.jpg)](https://www.youtube.com/watch?v=tZRtDx-bQxo)
+
 This demo has 4 docker containers:
 
 * rosgsw: Ground container that runs ROS2. Communicates with YAMCS.
@@ -13,7 +17,7 @@ Think of yamcs as running on a machine on Earth, fsw to be the spacecraft on a r
 Communication looks like:
 rosgsw <--> yamcs <-----------> fsw <--> rosfsw
 
-Note: To enable GUI apps inside the dev container, run:
+Note: You may need to enable xhost for GUI apps to come up for the demos. Run:
 ```
 xhost +local:root > /dev/null
 ```
@@ -34,6 +38,8 @@ Steps
 
 1. In another browser, open YAMCS: http://10.5.0.2:8090
 
-1. When you work with cFS, you have to request to have telemetry to be sent back to the ground. It is not sent back by default at startup. To request the telemetry to be sent, go to YAMCS and send a TOLab command. In the argument section, you'll write "10.5.0.2", this is the address of the ground machine, which is the machine where we want to receive the telemetry data. You can verify that data is coming in by checking the Telemetry/Parameter tab.
+1. Go to Commanding > Send a command. Click on ``LunarExploration/`` and select ``TOLabEnablePacket``. In the argument section under ``dest_ip``, write ``10.5.0.2``, and click on Send. This will enable the telemetry to be sent back to the ground. You should see telemetry from the ISS in RViz now.
 
-1. Now you are ready to command the arm. In the Command Tab, you can enter a 3D pose to command the arm to move, for instance, you can enter a pos of 1.0, 1.0, 2.0 and a rotation of 0.0, 0.0, 0.0, 1.0. You should see the arm moving in VNC. If you look at the Telemetry/Parameter tab for the joint states, you should see the values changing as the robot moves. Notice too that the joint values vary at a slower rate than real time (around 1Hz), this is because we have our cFS app set up so the telemetry is being sent back to a lower rate.
+1. Go to Procedures > Stacks. Click on ``Upload stack``. Go to ``dragoman/yamcs/stacks/BatteryReplacement/``, then select all files in there and open them. You should see seven stacks loaded. Click on ``BatteryReplacement_1_MoveToRack.ycs`` and click on the icon in the top bar that says ``Run all from selected step`` when hovered over with a mouse. This will run a procedure that commands the robot to perform the first part of the battery replacement.
+
+1. Once complete, return to Procedures > Stacks, and click on ``BatteryReplacement_2_RemoveBattery.ycs``, and follow same instructions as above. Repeat for all seven steps. The overall goal of the demo is to remove the old battery from the solar panel truss, and replace it with a new battery from the HTV pallet. The batteries aren't visible in rviz, but they are visible in Gazebo.
