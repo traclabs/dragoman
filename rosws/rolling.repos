@@ -9,7 +9,7 @@ repositories:
     version: humble-devel
   dragoman_sandbox:
     type: git
-    url: git@bitbucket.org:traclabs/dragoman_sandbox.git
+    url: https://www.github.com/traclabs/dragoman_sandbox.git
     version: devel
   ewellix_lift_kit:
     type: git

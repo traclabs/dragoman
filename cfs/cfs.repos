@@ -1,13 +1,13 @@
 repositories:
   cFS:
     type: git
-    url: git@github.com:nasa/cFS.git
+    url: https://www.github.com/nasa/cFS.git
     version: main
   cFS/apps/dragoman_apps:
     type: git
-    url: git@bitbucket.org:traclabs/dragoman_apps.git
+    url: https://www.github.com/traclabs/dragoman_apps.git
     version: main
   cFS/dragoman_defs:
     type: git
-    url: git@bitbucket.org:traclabs/dragoman_defs.git
+    url: https://www.github.com/traclabs/dragoman_defs.git
     version: main
