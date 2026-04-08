@@ -7,9 +7,6 @@ echo ""
 
 SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
-echo ">>> Building Viper images..."
-"${SCRIPT_DIR}/build_images_viper.sh"
-
 echo ""
 echo ">>> Building Gateway images..."
 "${SCRIPT_DIR}/build_images_gateway.sh"
