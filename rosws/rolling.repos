@@ -1,11 +1,11 @@
 repositories:
   chonkur_l_raile:
     type: git
-    url: git@github.com:traclabs/chonkur_l_raile.git
+    url: https://www.github.com/traclabs/chonkur_l_raile.git
     version: rolling-devel
   dextivr_hande:
     type: git
-    url: git@github.com:NASA-JSC-Robotics/dextivr_hande
+    url: https://www.github.com/NASA-JSC-Robotics/dextivr_hande
     version: humble-devel
   dragoman_sandbox:
     type: git
@@ -13,45 +13,49 @@ repositories:
     version: devel
   ewellix_lift_kit:
     type: git
-    url: git@github.com:traclabs/ewellix_lift_kit.git
+    url: https://www.github.com/traclabs/ewellix_lift_kit.git
     version: rolling-devel
   gateway_demos:
     type: git
-    url: git@github.com:traclabs/gateway_demos.git
+    url: https://www.github.com/traclabs/gateway_demos.git
     version: master
   iss_description:
     type: git
-    url: git@github.com:traclabs/iss_description.git
+    url: https://www.github.com/traclabs/iss_description.git
     version: dragoman
   merlin_mockup_description:
     type: git
-    url: git@github.com:NASA-JSC-Robotics/merlin_mockup_description
+    url: https://www.github.com/NASA-JSC-Robotics/merlin_mockup_description
     version: humble-devel
+  mujoco_ros2_control:
+    type: git
+    url: https://www.github.com/ros-controls/mujoco_ros2_control.git
+    version: main
   ros2_robotiq_gripper:
     type: git
-    url: git@github.com:traclabs/ros2_robotiq_gripper.git
+    url: https://www.github.com/traclabs/ros2_robotiq_gripper.git
     version: rolling-devel
   serial:
     type: git
-    url: git@github.com:tylerjw/serial.git
+    url: https://www.github.com/tylerjw/serial.git
     version: ros2
   space_resources:
     type: git
-    url: git@github.com:traclabs/space_resources.git
+    url: https://www.github.com/traclabs/space_resources.git
     version: master
   space_ros_demos:
     type: git
-    url: git@github.com:traclabs/demos.git
+    url: https://www.github.com/traclabs/demos.git
     version: dragoman_viper
   surface_robotics_mockups_description:
     type: git
-    url: git@github.com:NASA-JSC-Robotics/surface_robotics_mockups_description
+    url: https://www.github.com/NASA-JSC-Robotics/surface_robotics_mockups_description
     version: humble-devel
   trac_ik:
     type: git
-    url: git@bitbucket.org:traclabs/trac_ik.git
+    url: https://www.bitbucket.org/traclabs/trac_ik.git
     version: jazzy
   vention_rail:
     type: git
-    url: git@github.com:traclabs/vention_rail.git
+    url: https://www.github.com/traclabs/vention_rail.git
     version: rolling-devel
