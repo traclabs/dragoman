@@ -6,20 +6,18 @@ This workspace contains the docker and configuration files necessary to build an
 
 ## Installation
 
-* [Installation](docs/installation.md)
-
 1. Install git-lfs:
 
-  ```sh
-  sudo apt install git-lfs
-  ```
+    ```sh
+    sudo apt install git-lfs
+    ```
 
 1. Clone this repository:
 
-  ```sh
-  git clone https://www.github.com/traclabs/dragoman.git
-  cd dragoman
-  ```
+    ```sh
+    git clone https://www.github.com/traclabs/dragoman.git
+    cd dragoman
+    ```
 
 1. Clone software (cFS and dragoman ROS workspace)
 
@@ -29,7 +27,7 @@ This workspace contains the docker and configuration files necessary to build an
 
 1. Build the Demo Images
 
-    ```ah
+    ```sh
     ./scripts/build_images.sh
     ```
 
